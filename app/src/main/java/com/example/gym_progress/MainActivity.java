@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         editButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToEditRoutineClass();
+                goToEditWorkoutActivity();
             }
         });
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setMonthView();
     }
 
-    private void goToEditRoutineClass() {
+    private void goToEditWorkoutActivity() {
         Intent  intent = new Intent(this, EditWorkout.class); // Second arguments says which file it'll head to
         String textToSend = EditTitles.Routine1Text;
         EditTitles.RoutineSelected = textToSend;

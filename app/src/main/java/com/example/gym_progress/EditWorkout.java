@@ -22,8 +22,6 @@ public class EditWorkout extends AppCompatActivity {
     TextView setTitle;
     Spinner spinner, spinner_sets, spinner_reps;
 
-    DatabaseWorkout myDB;
-    ArrayList<String> workout_id, workout_number, workout_name, workout_exercise, workout_sets, workout_reps;
     RecyclerView recyclerView;
 
     //----------------Adapter variables-----------
@@ -57,16 +55,24 @@ public class EditWorkout extends AppCompatActivity {
         add_spinner_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseWorkout myDB = new DatabaseWorkout(EditWorkout.this);
-                myDB.addWorkout(1, "test1", (String) spinner.getSelectedItem(),
-                        Integer.parseInt((String) spinner_sets.getSelectedItem()),
-                        Integer.parseInt((String) spinner_reps.getSelectedItem()));
-
                 //-----------recycler view part-------------
-                insertSingleItem();
+                insertItems();
             }
         });
-        save_button = findViewById(R.id.add_spinner_item);
+        //-------------------SAVE BUTTON LISTENER------------------
+        save_button = findViewById(R.id.save_button);
+        save_button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                DatabaseWorkout myDB = new DatabaseWorkout(EditWorkout.this);
+                for (int i = 0; i < recyclerName.size(); i++) {
+                    myDB.addWorkout(1, "test1", (String) recyclerName.get(i),
+                            Integer.parseInt((String) recyclerSets.get(i)),
+                            Integer.parseInt((String) recyclerReps.get(i)));
+                }
+            }
+        });
 
         //--------------------Recycler view----------------------
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEditWorkout);
@@ -144,13 +150,14 @@ public class EditWorkout extends AppCompatActivity {
  *     }*/
 
     public void onButtonClick(View view) {
-        insertSingleItem();
+        insertItems();
     }
 
-    private void insertSingleItem() {
+    private void insertItems() {
         String item = (String) spinner.getSelectedItem();
         int insertIndex = 0;
         recyclerName.add(insertIndex, item);
+
 
         item = (String) spinner_sets.getSelectedItem();
         recyclerSets.add(insertIndex, item);

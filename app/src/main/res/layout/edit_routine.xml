@@ -30,12 +30,21 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/choose_exercise_text"
+        android:layout_width="248dp"
+        android:layout_height="35dp"
+        android:text="Choose an exercise:" />
+
+    <TextView
         android:id="@+id/chooseTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose a routine:"
+        android:textAlignment="viewStart"
         android:textColor="@android:color/black"
-        android:textSize="21sp" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
 
 
     <LinearLayout
