@@ -1,10 +1,12 @@
 package com.example.gym_progress;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -65,14 +67,39 @@ public class EditWorkout extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                DatabaseWorkout myDB = new DatabaseWorkout(EditWorkout.this);
-                for (int i = 0; i < recyclerName.size(); i++) {
-                    myDB.addWorkout(1, "test1", (String) recyclerName.get(i),
-                            Integer.parseInt((String) recyclerSets.get(i)),
-                            Integer.parseInt((String) recyclerReps.get(i)));
+
+                //-------------After the button is clicked---------
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditWorkout.this);
+                builder.setCancelable(true);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Are you sure about these changes?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseWorkout myDB = new DatabaseWorkout(EditWorkout.this);
+                                 for (int index = 0; index < recyclerName.size(); index++) {
+                                    myDB.addWorkout(1, "test1", (String) recyclerName.get(index),
+                                            Integer.parseInt((String) recyclerSets.get(index)),
+                                            Integer.parseInt((String) recyclerReps.get(index)));
+                                 }
+                                goToMain();
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
                 }
-            }
         });
+
+
 
         //--------------------Recycler view----------------------
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEditWorkout);
@@ -133,6 +160,15 @@ public class EditWorkout extends AppCompatActivity {
 
     //-----------DATA BASE METHODS TO READ--------------------------
 /**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  *     void storeDataInArrays(){
  *         Cursor cursor = myDB.readAllData();
  *         if (cursor.getCount() == 0) {
