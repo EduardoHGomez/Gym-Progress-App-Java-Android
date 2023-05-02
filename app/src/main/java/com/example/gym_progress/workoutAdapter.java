@@ -13,13 +13,15 @@ import java.util.List;
 public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.ViewHolder> {
 
     //--------Variables------------
-    private List<String> mData;
+    private List<String> nameData, setsData, repsData;
     private LayoutInflater mInflater;
 
     //-------------CONSTRUCTOR-----------------------
-    workoutAdapter(Context context, List<String> data) {
+    workoutAdapter(Context context, List<String> nameData, List<String> setsData, List<String> repsData) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.nameData = nameData;
+        this.setsData = setsData;
+        this.repsData = repsData;
     }
 
     // ----------------RECYCLER ROW / VIEW HOLDER-----------------------------
@@ -33,29 +35,32 @@ public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.ViewHold
     // -----THESE CHANGES WILL AFFECT EACH ROW AND ITS DATA-------------
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        holder.nameTextView.setText(nameData.get(position));
+        holder.setsTextView.setText(setsData.get(position));
+        holder.repsTextView.setText(repsData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return nameData.size();
     }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView myTextView, myNumber1, myNumber2;
+        TextView nameTextView, setsTextView, repsTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.recyclerName);
+            nameTextView = itemView.findViewById(R.id.recyclerName);
+            setsTextView = itemView.findViewById(R.id.recyclerSets);
+            repsTextView = itemView.findViewById(R.id.recyclerReps);
         }
 
     }
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return mData.get(id);
+        return nameData.get(id);
     }
 
 }

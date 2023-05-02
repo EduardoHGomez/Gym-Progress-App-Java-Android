@@ -6,15 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +27,10 @@ public class EditWorkout extends AppCompatActivity {
     RecyclerView recyclerView;
 
     //----------------Adapter variables-----------
-    List<String> data;
     workoutAdapter adapter;
+    //--------
+    List<String> recyclerName, recyclerSets, recyclerReps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,9 @@ public class EditWorkout extends AppCompatActivity {
 
         //-----Spinner init-----------------
         initSpinner();
-        data = new ArrayList<>();
+        recyclerName = new ArrayList<>();
+        recyclerSets = new ArrayList<>();
+        recyclerReps = new ArrayList<>();
 
         //---------ADDING BUTTONS--------------
         return_button = findViewById(R.id.return_button);
@@ -74,7 +75,7 @@ public class EditWorkout extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        adapter = new workoutAdapter(this, data);
+        adapter = new workoutAdapter(this, recyclerName, recyclerSets, recyclerReps);
         recyclerView.setAdapter(adapter);
 
         //---------------READING ALL THE DATA----------------
@@ -124,22 +125,23 @@ public class EditWorkout extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //-----------DATA BASE METHODS--------------------------
-    void storeDataInArrays(){
-        Cursor cursor = myDB.readAllData();
-        if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
-        }else{
-            while (cursor.moveToNext()){
-                workout_id.add(cursor.getString(0));
-                workout_number.add(cursor.getString(0));
-                workout_name.add(cursor.getString(0));
-                workout_exercise.add(cursor.getString(0));
-                workout_sets.add(cursor.getString(0));
-                workout_reps.add(cursor.getString(0));
-            }
-        }
-    }
+    //-----------DATA BASE METHODS TO READ--------------------------
+/**
+ *     void storeDataInArrays(){
+ *         Cursor cursor = myDB.readAllData();
+ *         if (cursor.getCount() == 0) {
+ *             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+ *         }else{
+ *             while (cursor.moveToNext()){
+ *                 workout_id.add(cursor.getString(0));
+ *                 workout_number.add(cursor.getString(0));
+ *                 workout_name.add(cursor.getString(0));
+ *                 workout_exercise.add(cursor.getString(0));
+ *                 workout_sets.add(cursor.getString(0));
+ *                 workout_reps.add(cursor.getString(0));
+ *             }
+ *         }
+ *     }*/
 
     public void onButtonClick(View view) {
         insertSingleItem();
@@ -148,7 +150,14 @@ public class EditWorkout extends AppCompatActivity {
     private void insertSingleItem() {
         String item = (String) spinner.getSelectedItem();
         int insertIndex = 0;
-        data.add(insertIndex, item);
+        recyclerName.add(insertIndex, item);
+
+        item = (String) spinner_sets.getSelectedItem();
+        recyclerSets.add(insertIndex, item);
+
+        item = (String) spinner_reps.getSelectedItem();
+        recyclerReps.add(insertIndex, item);
+
         adapter.notifyItemInserted(insertIndex);
     }
 
