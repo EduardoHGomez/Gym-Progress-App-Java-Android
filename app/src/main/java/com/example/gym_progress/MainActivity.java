@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+
+    Button addNewWorkout;
     
     //----------------Edit option from textView------------------
     @Override
@@ -28,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView editButton1 = (TextView) findViewById(R.id.editRoutine);
-        editButton1.setOnClickListener(new View.OnClickListener() {
+        addNewWorkout = (Button) findViewById(R.id.add_new_workout);
+        addNewWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToEditWorkoutActivity();

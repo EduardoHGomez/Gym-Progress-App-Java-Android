@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class EditWorkout extends AppCompatActivity {
     Button return_button, save_button, add_spinner_item;
     TextView setTitle;
     Spinner spinner, spinner_sets, spinner_reps;
+    EditText editWorkoutName;
 
     RecyclerView recyclerView;
 
@@ -43,6 +45,9 @@ public class EditWorkout extends AppCompatActivity {
         recyclerName = new ArrayList<>();
         recyclerSets = new ArrayList<>();
         recyclerReps = new ArrayList<>();
+
+        //----------ADDING EDIT TEXT----------
+        editWorkoutName = (EditText) findViewById(R.id.editWorkoutName);
 
         //---------ADDING BUTTONS--------------
         return_button = findViewById(R.id.return_button);
@@ -79,7 +84,7 @@ public class EditWorkout extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 DatabaseWorkout myDB = new DatabaseWorkout(EditWorkout.this);
                                  for (int index = 0; index < recyclerName.size(); index++) {
-                                    myDB.addWorkout(1, "test1", (String) recyclerName.get(index),
+                                    myDB.addWorkout(1, editWorkoutName.getText().toString(), (String) recyclerName.get(index),
                                             Integer.parseInt((String) recyclerSets.get(index)),
                                             Integer.parseInt((String) recyclerReps.get(index)));
                                  }
@@ -98,8 +103,6 @@ public class EditWorkout extends AppCompatActivity {
 
                 }
         });
-
-
 
         //--------------------Recycler view----------------------
         RecyclerView recyclerView = findViewById(R.id.recyclerViewEditWorkout);

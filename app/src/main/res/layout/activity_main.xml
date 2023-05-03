@@ -125,7 +125,7 @@
     <!-- BUTTONS -->
 
     <Button
-        android:id="@+id/next"
+        android:id="@+id/add_new_workout"
         android:layout_width="85sp"
         android:layout_height="85sp"
         android:background="@drawable/round_button"
@@ -135,53 +135,9 @@
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/editRoutine"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#E1D6D6"
-            android:text="Rout1"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:clickable="true"
-            />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/addButton1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="#3200BCD4"
-
-                android:text="Add" />
-
-            <Button
-                android:id="@+id/deleteButton1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="#E4E8A5A5"
-                android:drawableRight="@drawable/baseline_delete_24"
-                android:text="Delete"
-
-                android:textColor="#F4383E"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

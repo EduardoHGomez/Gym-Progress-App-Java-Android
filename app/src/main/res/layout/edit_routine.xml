@@ -18,6 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="InvalidId" />
 
+    <EditText
+        android:id="@+id/editWorkoutName"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="My Workout Routine" />
+
     <Button
         android:id="@+id/save_button"
         android:layout_width="108dp"
@@ -101,6 +109,14 @@
         android:id="@+id/recyclerViewEditWorkout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
 
 
 </LinearLayout>
