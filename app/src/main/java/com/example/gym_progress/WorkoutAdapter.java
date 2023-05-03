@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.ViewHolder> {
+public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHolder> {
 
     //--------Variables------------
     private List<String> nameData, setsData, repsData;
     private LayoutInflater mInflater;
 
     //-------------CONSTRUCTOR-----------------------
-    workoutAdapter(Context context, List<String> nameData, List<String> setsData, List<String> repsData) {
+    WorkoutAdapter(Context context, List<String> nameData, List<String> setsData, List<String> repsData) {
         this.mInflater = LayoutInflater.from(context);
         this.nameData = nameData;
         this.setsData = setsData;

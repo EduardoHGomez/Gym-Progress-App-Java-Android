@@ -29,7 +29,7 @@ public class EditWorkout extends AppCompatActivity {
     RecyclerView recyclerView;
 
     //----------------Adapter variables-----------
-    workoutAdapter adapter;
+    WorkoutAdapter adapter;
     //--------
     List<String> recyclerName, recyclerSets, recyclerReps;
 
@@ -111,7 +111,7 @@ public class EditWorkout extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        adapter = new workoutAdapter(this, recyclerName, recyclerSets, recyclerReps);
+        adapter = new WorkoutAdapter(this, recyclerName, recyclerSets, recyclerReps);
         recyclerView.setAdapter(adapter);
 
         //---------------READING ALL THE DATA----------------
