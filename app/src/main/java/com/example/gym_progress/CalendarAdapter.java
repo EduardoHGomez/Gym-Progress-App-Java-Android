@@ -18,12 +18,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 {
     private final ArrayList<String> daysOfMonth;
 
+    //---------------Constructor--------------------
     public CalendarAdapter(ArrayList<String> daysOfMonth) {
         this.daysOfMonth = daysOfMonth;
     }
 
 
-    //---------TEST----
+    //------------------CalendarViewHolder--------------
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +35,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         return new CalendarViewHolder(view);
     }
 
-
+    //------------------onBindViewHolder--------------
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         holder.dayOfMonth.setText(daysOfMonth.get(position));
@@ -46,6 +47,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         }
     }
 
+    //-------------getItemCount--------------------
     @Override
     public int getItemCount() {
         return daysOfMonth.size();

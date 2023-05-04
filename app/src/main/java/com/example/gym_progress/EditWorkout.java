@@ -129,7 +129,7 @@ public class EditWorkout extends AppCompatActivity {
  *         recyclerView.setAdapter(customAdapter);
  *         recyclerView.setLayoutManager(new LinearLayoutManager(EditWorkout.this));*/
 
-    }
+    } // Int main
 
     //------------INIT FUNCTION-----------------
     public void initSpinner(){
@@ -162,41 +162,11 @@ public class EditWorkout extends AppCompatActivity {
     }
 
     //-----------DATA BASE METHODS TO READ--------------------------
-/**
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *     void storeDataInArrays(){
- *         Cursor cursor = myDB.readAllData();
- *         if (cursor.getCount() == 0) {
- *             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
- *         }else{
- *             while (cursor.moveToNext()){
- *                 workout_id.add(cursor.getString(0));
- *                 workout_number.add(cursor.getString(0));
- *                 workout_name.add(cursor.getString(0));
- *                 workout_exercise.add(cursor.getString(0));
- *                 workout_sets.add(cursor.getString(0));
- *                 workout_reps.add(cursor.getString(0));
- *             }
- *         }
- *     }*/
-
-    public void onButtonClick(View view) {
-        insertItems();
-    }
 
     private void insertItems() {
         String item = (String) spinner.getSelectedItem();
         int insertIndex = 0;
         recyclerName.add(insertIndex, item);
-
 
         item = (String) spinner_sets.getSelectedItem();
         recyclerSets.add(insertIndex, item);

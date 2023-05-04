@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity{
     DatabaseWorkout myDB;
     ArrayList<String> workout_names;
 
+    //--------Calendar Data View--------------------
+    ArrayList<Integer> day, month, year, amount_of_sets, amount_of_reps;
 
 
     //----------------Edit option from textView------------------
@@ -47,15 +49,20 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        initWidgets();
-        selectedDate = LocalDate.now();
-        setMonthView();
+        //----------SQL init Calendar View---------------
+        day = new ArrayList<>();
+        month = new ArrayList<>();
+        year = new ArrayList<>();
+        amount_of_reps = new ArrayList<>();
+        amount_of_sets = new ArrayList<>();
 
         //-------------SQL init-----------------------
 
         myDB = new DatabaseWorkout(MainActivity.this);
         workout_names = new ArrayList<>();
         storeDataInArrays();
+
+        storeCalendarDataInArrays();
 
         RecyclerView workoutsRecyclerView = findViewById(R.id.mainWorkoutRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -64,6 +71,9 @@ public class MainActivity extends AppCompatActivity{
         MainWorkoutAdapter adapter = new MainWorkoutAdapter(MainActivity.this, workout_names);
         workoutsRecyclerView.setAdapter(adapter);
 
+        initWidgets();
+        selectedDate = LocalDate.now();
+        setMonthView();
 
     }
 
@@ -80,7 +90,9 @@ public class MainActivity extends AppCompatActivity{
         monthYearText.setText(monthYearFromDate(selectedDate)); // Set current text of the current month
         ArrayList<String>daysInMonth = daysInMonthArray(selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth); // This one edited
+        // This one edited for the inputs
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -135,7 +147,7 @@ public class MainActivity extends AppCompatActivity{
 
     //----------------SQL------------------------
     public void storeDataInArrays(){
-        Cursor cursor = myDB.readAllData();
+        Cursor cursor = myDB.readAllDataWorkoutNames("workoutPackages");
         if(cursor.getCount() == 0){
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }else{
@@ -145,13 +157,22 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void updateCalendar(){
-
+    //--------------UPDATING CALENDAR ON CALENDAR VIEWz---------------------
+    public void storeCalendarDataInArrays(){
+        // Stores
+        Cursor cursor = myDB.readAllDataCalendarData("workoutCalendarData");
+        if(cursor.getCount() == 0){
+            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                day.add(cursor.getInt(1));
+                month.add(cursor.getInt(2));
+                year.add(cursor.getInt(3));
+                amount_of_reps.add(cursor.getInt(4));
+                amount_of_sets.add(cursor.getInt(5));
+            }
+        }
     }
-
-
-
-
 
 
 }

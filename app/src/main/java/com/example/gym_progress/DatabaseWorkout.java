@@ -15,7 +15,7 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Workout.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "workoutPackages";
+    private static final String TABLE_NAME = "WorkoutPackages";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_WORKOUT_NAME = "name";
     private static final String COLUMN_EXERCISE = "exercise";
@@ -30,11 +30,20 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME +" (" + COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +" (" + COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_NO_OF_WORKOUT + " INTEGER, "+ COLUMN_WORKOUT_NAME + " TEXT, "
                 + COLUMN_EXERCISE + " TEXT, " + COLUMN_SETS + " INTEGER, " + COLUMN_REPS + " INTEGER)";
         db.execSQL(query);
 
+        String query2 = "CREATE TABLE IF NOT EXISTS WorkoutCalendarData ( " +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "day INTEGER, " +
+                "month INTEGER, " +
+                "year INTEGER, " +
+                "sets INTEGER, reps INTEGER)";
+
+        db.execSQL(query);
+        db.execSQL(query2);
     }
 
     @Override
@@ -61,8 +70,19 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor readAllData(){
-        String query = "select DISTINCT name from workoutPackages";
+    public Cursor readAllDataWorkoutNames(String tableSelected){
+        String query = "select DISTINCT name from " + tableSelected;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public Cursor readAllDataCalendarData(String tableSelected){
+        String query = "select DISTINCT * from " + tableSelected;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
