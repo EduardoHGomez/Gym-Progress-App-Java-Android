@@ -19,7 +19,13 @@ public class MainWorkoutAdapter extends RecyclerView.Adapter<WorkoutHolder> {
     private List<String> nameData;
     private LayoutInflater mInflater;
 
-
+    public OnItemClickListener mListener;
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     //-------------CONSTRUCTOR-----------------------
     MainWorkoutAdapter(Context context, List<String> nameData) {
@@ -32,7 +38,7 @@ public class MainWorkoutAdapter extends RecyclerView.Adapter<WorkoutHolder> {
     @Override
     public WorkoutHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.main_recyclerview_row, parent, false);
-        return new WorkoutHolder(view);
+        return new WorkoutHolder(view, mListener);
     }
 
     // binds the data to the TextView in each row
