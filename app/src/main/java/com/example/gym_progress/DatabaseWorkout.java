@@ -23,7 +23,7 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
     private static final String COLUMN_REPS = "repetitions";
     private static final String COLUMN_NO_OF_WORKOUT = "workout_no";
 
-    public DatabaseWorkout(@Nullable Context context) {
+    DatabaseWorkout(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -62,7 +62,7 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
     }
 
     public Cursor readAllData(){
-        String query = "SELECT * from " + TABLE_NAME;
+        String query = "select DISTINCT name from workoutPackages";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -70,7 +70,7 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
-
-
     }
+
+
 }

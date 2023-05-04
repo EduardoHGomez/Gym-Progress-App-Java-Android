@@ -58,9 +58,4 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.ViewHold
 
     }
 
-    // convenience method for getting data at click position
-    String getItem(int id) {
-        return nameData.get(id);
-    }
-
 }

@@ -2,10 +2,13 @@ package com.example.gym_progress;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,14 +19,19 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class MainActivity extends AppCompatActivity{
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
     Button addNewWorkout;
-    
+
+    DatabaseWorkout myDB;
+    ArrayList<String> workout_names;
+
+
+
     //----------------Edit option from textView------------------
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +50,23 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+
+        //-------------SQL init-----------------------
+
+        myDB = new DatabaseWorkout(MainActivity.this);
+        workout_names = new ArrayList<>();
+        storeDataInArrays();
+
+        RecyclerView workoutsRecyclerView = findViewById(R.id.mainWorkoutRecyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        workoutsRecyclerView.setLayoutManager(layoutManager);
+
+        MainWorkoutAdapter adapter = new MainWorkoutAdapter(MainActivity.this, workout_names);
+        workoutsRecyclerView.setAdapter(adapter);
+
+
     }
+
 
     private void goToEditWorkoutActivity() {
         Intent  intent = new Intent(this, EditWorkout.class); // Second arguments says which file it'll head to
@@ -51,16 +75,18 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         startActivity(intent);
     }
 
+    //------------- SET MONTH VIEW---------------------
     private void setMonthView() {
-        monthYearText.setText(monthYearFromDate(selectedDate));
+        monthYearText.setText(monthYearFromDate(selectedDate)); // Set current text of the current month
         ArrayList<String>daysInMonth = daysInMonthArray(selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth); // This one edited
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
+    //--------------DAYS IN MONTH ARRAY-------------------
     private ArrayList<String> daysInMonthArray(LocalDate date) {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
@@ -84,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         return  daysInMonthArray;
     }
 
+    // --------------FORMATTER---------------------
+    // This class returns a string about how got extract the Month String
     private String monthYearFromDate(LocalDate date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         return date.format(formatter);
@@ -104,13 +132,26 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setMonthView();
     }
 
-    @Override
-    public void onItemClick(int position, String dayText) {
-        if(dayText.equals("")){
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+    //----------------SQL------------------------
+    public void storeDataInArrays(){
+        Cursor cursor = myDB.readAllData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                workout_names.add(cursor.getString(0)); // Adds the distinct workouts
+            }
         }
     }
+
+    public void updateCalendar(){
+
+    }
+
+
+
+
 
 
 }
