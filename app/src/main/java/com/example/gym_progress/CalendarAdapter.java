@@ -42,7 +42,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         dayOfMonth = daysOfMonth.get(position);
         if (position < 42 && !dayOfMonth.equals("")) {
             holder.dayOfMonth.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.rounded_corner));
-            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.gray), PorterDuff.Mode.SRC_IN);
+            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.green1), PorterDuff.Mode.SRC_IN);
         }
     }
 
