@@ -92,5 +92,46 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public void addToWorkCalendarDataTable(int day, int month, int year, String name) {
+        // First we'll read the sets and reps that "name" have
+        name = "'"+name+"'";
+        String query = "select sets, repetitions from WorkoutPackages where name like " + name;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        int sets = 0;
+        int reps = 0;
+
+        if(cursor.getCount() == 0){
+            Toast.makeText(this.context, "No data", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                sets += cursor.getInt(0);
+                reps += cursor.getInt(1);
+            }
+        }
+
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("day", day);
+        cv.put("month", month);
+        cv.put("year", year);
+        cv.put("year", name);
+        cv.put("sets", sets);
+        cv.put("reps", reps);
+        long result = db.insert("workoutCalendarData", null, cv);
+
+        if (result == -1){
+            Toast.makeText(context, "Failed to upload data", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

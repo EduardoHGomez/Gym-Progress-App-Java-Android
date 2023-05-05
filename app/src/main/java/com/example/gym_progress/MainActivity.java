@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
-    Button addNewWorkout, J;
+    Button addNewWorkout;
 
     DatabaseWorkout myDB;
     ArrayList<String> workout_names;
@@ -72,8 +72,9 @@ public class MainActivity extends AppCompatActivity{
         adapter.setOnItemClickListener(new MainWorkoutAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String currentQueryToAdd = workout_names.get(position);
-                Log.d("HHHHHHHHHHHHHHHHHHHHH", currentQueryToAdd);
+                String currentWorkoutName = workout_names.get(position);
+                Log.d("HHHHHHHHHHHHHHHHHHHHH", currentWorkoutName);
+                myDB.addToWorkCalendarDataTable(selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear(), currentWorkoutName);
             }
         });
         workoutsRecyclerView.setAdapter(adapter);
@@ -160,14 +161,10 @@ public class MainActivity extends AppCompatActivity{
         }else{
             while (cursor.moveToNext()){
                 workout_names.add(cursor.getString(0)); // Adds the distinct workouts
-                addToWorkCalendarDataTable();
             }
         }
     }
 
-    private void addToWorkCalendarDataTable() {
-
-    }
 
     //--------------UPDATING CALENDAR ON CALENDAR VIEWz---------------------
     public void storeCalendarDataInArrays(){
