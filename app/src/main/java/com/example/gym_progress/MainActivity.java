@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void goToEditWorkoutActivity() {
         Intent  intent = new Intent(this, EditWorkout.class); // Second arguments says which file it'll head to
-        String textToSend = EditTitles.Routine1Text;
-        EditTitles.RoutineSelected = textToSend;
         startActivity(intent);
     }
 

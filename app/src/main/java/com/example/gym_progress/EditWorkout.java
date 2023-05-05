@@ -21,7 +21,7 @@ import java.util.List;
 
 public class EditWorkout extends AppCompatActivity {
 
-    Button return_button, save_button, add_spinner_item;
+    Button save_button, add_spinner_item;
     TextView setTitle;
     Spinner spinner, spinner_sets, spinner_reps;
     EditText editWorkoutName;
@@ -50,13 +50,6 @@ public class EditWorkout extends AppCompatActivity {
         editWorkoutName = (EditText) findViewById(R.id.editWorkoutName);
 
         //---------ADDING BUTTONS--------------
-        return_button = findViewById(R.id.return_button);
-        return_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToMain();
-            }
-        });
 
         add_spinner_item = findViewById(R.id.add_spinner_item);
         add_spinner_item.setOnClickListener(new View.OnClickListener() {
