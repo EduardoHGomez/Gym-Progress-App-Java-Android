@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -107,7 +108,7 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
         int reps = 0;
 
         if(cursor.getCount() == 0){
-            Toast.makeText(this.context, "No data", Toast.LENGTH_SHORT).show();
+            Log.d("No data", "Unavailable");
         }else{
             while (cursor.moveToNext()){
                 sets += cursor.getInt(0);

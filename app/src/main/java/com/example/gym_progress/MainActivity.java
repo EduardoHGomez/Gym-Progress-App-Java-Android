@@ -164,7 +164,8 @@ public class MainActivity extends AppCompatActivity{
     public void storeDataInArrays(){
         Cursor cursor = myDB.readAllDataWorkoutNames("workoutPackages");
         if(cursor.getCount() == 0){
-            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+
+            Log.d("No data", "Unavailable");
         }else{
             while (cursor.moveToNext()){
                 workout_names.add(cursor.getString(0)); // Adds the distinct workouts
@@ -178,7 +179,8 @@ public class MainActivity extends AppCompatActivity{
         // Stores
         Cursor cursor = myDB.readAllDataCalendarData("workoutCalendarData");
         if(cursor.getCount() == 0){
-            Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
+
+            Log.d("No", "data");
         }else{
             while (cursor.moveToNext()){
                 day.add(cursor.getInt(1));

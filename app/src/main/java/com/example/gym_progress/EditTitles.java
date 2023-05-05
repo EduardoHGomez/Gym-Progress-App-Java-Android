@@ -7,6 +7,6 @@ public class EditTitles {
     public static String Routine3Text = "MyRoutine3";
     public static String Routine4Text = "MyRoutine4";
 
-    public static String RoutineSelected = "h";
+    public static String RoutineSelected = "Workout plan";
 
 }

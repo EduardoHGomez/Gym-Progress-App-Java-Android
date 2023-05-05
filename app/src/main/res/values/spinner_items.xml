@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="planets_array">
-        <item>Sentadillas</item>
-        <item>Extensiones</item>
-        <item>Pantorilla</item>
-        <item>Femoral</item>
+        <item>Push-up</item>
+        <item>Dip</item>
+        <item>Chest Fly</item>
+        <item>Dumbbell Pull-over</item>
+        <item>Incline bench press</item>
+        <item>Decline press</item>
+        <item>Machine chest press</item>
+        <item>Svend press</item>
+        <item>Cable iron cross</item>
+        <item>Side-to-side landmine press</item>
+
     </string-array>
 </resources>

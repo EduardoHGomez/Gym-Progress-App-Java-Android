@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         DatabaseWorkout myDB = new DatabaseWorkout(contextMain);
         Cursor cursor = myDB.readAllDayData(position, month, year);
         if(cursor.getCount() == 0){
-            Toast.makeText(contextMain, "No data", Toast.LENGTH_SHORT).show();
+            Log.d("No", "data");
         }else{
             while (cursor.moveToNext()){
                 sets = cursor.getInt(0);
