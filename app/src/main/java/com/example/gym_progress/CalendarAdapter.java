@@ -49,18 +49,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         holder.dayOfMonth.setText(daysOfMonth.get(position));
         String dayOfMonth;
         dayOfMonth = daysOfMonth.get(position);
+        int colorBackground = R.color.empty;
         if (position < 42 && !dayOfMonth.equals("")) {
             holder.dayOfMonth.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.rounded_corner));
             int colorToSet = calculateColor(position, month, year);
-            int colorBackground = 0;
             if (colorToSet < 10) colorBackground = R.color.empty;
             else if (colorToSet > 10 && colorToSet < 100) colorBackground = R.color.green1;
             else if (colorToSet >= 100 && colorToSet < 300) colorBackground = R.color.green2;
             else if (colorToSet >= 300 && colorToSet < 500) colorBackground = R.color.green3;
             else if (colorToSet >= 500 && colorToSet < 800) colorBackground = R.color.green4;
 
-            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), colorBackground), PorterDuff.Mode.SRC_IN);
         }
+            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), colorBackground), PorterDuff.Mode.SRC_IN);
     }
 
     private int calculateColor(int position, int month, int year) {

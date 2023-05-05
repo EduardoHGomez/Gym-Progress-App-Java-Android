@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WorkoutHolder extends RecyclerView.ViewHolder{
     public TextView nameTextView;
-    public Button addButton;
+    public Button addButton, deleteButton;
 
     public WorkoutHolder(View itemView, MainWorkoutAdapter.OnItemClickListener listener) {
         super(itemView);
@@ -18,10 +18,15 @@ public class WorkoutHolder extends RecyclerView.ViewHolder{
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = getAdapterPosition();
-                listener.onItemClick(position);
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
+                    }
+                }
             }
         });
+
     }
 
     public String getNameAtIndex(){

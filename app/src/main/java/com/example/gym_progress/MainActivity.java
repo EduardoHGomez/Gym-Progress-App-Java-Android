@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("HHHHHHHHHHHHHHHHHHHHH", currentWorkoutName);
                 myDB.addToWorkCalendarDataTable(selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear(), currentWorkoutName);
             }
+            
+
         });
         workoutsRecyclerView.setAdapter(adapter);
 
