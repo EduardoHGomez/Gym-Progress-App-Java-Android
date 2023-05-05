@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
         ArrayList<String>daysInMonth = daysInMonthArray(selectedDate);
 
         // This one edited for the inputs
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, selectedDate.getMonthValue(), selectedDate.getYear());
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);

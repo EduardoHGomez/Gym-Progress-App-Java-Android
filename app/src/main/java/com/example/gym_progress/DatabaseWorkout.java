@@ -121,7 +121,6 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
         cv.put("day", day);
         cv.put("month", month);
         cv.put("year", year);
-        cv.put("year", name);
         cv.put("sets", sets);
         cv.put("reps", reps);
         long result = db.insert("workoutCalendarData", null, cv);
@@ -131,6 +130,19 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Cursor readAllDayData(int day, int month, int year){
+        String query = "select sets, reps from WorkoutCalendarData WorkoutCalendar where day == " + day
+                + " and month == " + month
+                + " and year == " + year;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
     }
 
 
