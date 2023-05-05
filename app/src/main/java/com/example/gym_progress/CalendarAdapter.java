@@ -58,10 +58,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             else if (colorToSet >= 100 && colorToSet < 300) colorBackground = R.color.green2;
             else if (colorToSet >= 300 && colorToSet < 500) colorBackground = R.color.green3;
             else if (colorToSet >= 500 && colorToSet < 800) colorBackground = R.color.green4;
+            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), colorBackground), PorterDuff.Mode.SRC_IN);    }
 
         }
-            holder.dayOfMonth.getBackground().setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), colorBackground), PorterDuff.Mode.SRC_IN);
-    }
 
     private int calculateColor(int position, int month, int year) {
         int total = 0;
