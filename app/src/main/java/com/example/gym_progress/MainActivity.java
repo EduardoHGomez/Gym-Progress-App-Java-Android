@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onItemClick(int position) {
                 String currentWorkoutName = workout_names.get(position);
-                Log.d("HHHHHHHHHHHHHHHHHHHHH", currentWorkoutName);
                 myDB.addToWorkCalendarDataTable(selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear(), currentWorkoutName);
                 setMonthView();
             }
