@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity{
     DatabaseWorkout myDB;
     ArrayList<String> workout_names;
 
+    MainWorkoutAdapter adapter;
+
     //--------Calendar Data View--------------------
     ArrayList<Integer> day, month, year, amount_of_sets, amount_of_reps;
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity{
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         workoutsRecyclerView.setLayoutManager(layoutManager);
 
-        MainWorkoutAdapter adapter = new MainWorkoutAdapter(MainActivity.this, workout_names);
+        adapter = new MainWorkoutAdapter(MainActivity.this, workout_names);
         adapter.setOnItemClickListener(new MainWorkoutAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -76,7 +78,12 @@ public class MainActivity extends AppCompatActivity{
                 Log.d("HHHHHHHHHHHHHHHHHHHHH", currentWorkoutName);
                 myDB.addToWorkCalendarDataTable(selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear(), currentWorkoutName);
             }
-            
+
+            @Override
+            public void onItemDelete(int position) {
+                deleteWorkout(position);
+            }
+
 
         });
         workoutsRecyclerView.setAdapter(adapter);
@@ -183,6 +190,14 @@ public class MainActivity extends AppCompatActivity{
                 amount_of_sets.add(cursor.getInt(5));
             }
         }
+    }
+
+    public void deleteWorkout(int position){
+        String ahh = workout_names.get(position);
+        workout_names.remove(position);
+
+        myDB.removeWorkoutData(ahh);
+        adapter.notifyItemRemoved(position);
     }
 
 

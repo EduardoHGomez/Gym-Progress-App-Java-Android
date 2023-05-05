@@ -22,6 +22,7 @@ public class MainWorkoutAdapter extends RecyclerView.Adapter<WorkoutHolder> {
     public OnItemClickListener mListener;
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onItemDelete(int position);
     }
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;

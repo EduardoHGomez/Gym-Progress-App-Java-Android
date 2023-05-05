@@ -146,4 +146,10 @@ public class DatabaseWorkout extends SQLiteOpenHelper {
     }
 
 
+    public void removeWorkoutData(String toDelete) {
+        toDelete = "'" + toDelete + "'";
+        String query = "DELETE FROM WorkoutPackages WHERE name like " + toDelete;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+    }
 }

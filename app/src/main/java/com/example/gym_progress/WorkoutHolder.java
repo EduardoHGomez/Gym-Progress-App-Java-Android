@@ -14,6 +14,7 @@ public class WorkoutHolder extends RecyclerView.ViewHolder{
         super(itemView);
         nameTextView = itemView.findViewById(R.id.main_recycler_workoutName);
         addButton = itemView.findViewById(R.id.add_button_workout);
+        deleteButton = itemView.findViewById(R.id.delete_button_workout);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,6 +23,18 @@ public class WorkoutHolder extends RecyclerView.ViewHolder{
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(position);
+                    }
+                }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemDelete(position);
                     }
                 }
             }
